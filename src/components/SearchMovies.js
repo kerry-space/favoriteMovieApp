@@ -22,31 +22,34 @@ const SearchMovies = () => {
   };
 
   return (
-    <div>
-      <h2>Search Movies</h2>
-      <input 
-        type="text" 
-        value={query} 
-        onChange={(e) => setQuery(e.target.value)} 
-        placeholder="Search for a movie..."
-      />
-      <button onClick={handleSearch} disabled={loading}>
-        {loading ? 'Searching...' : 'Search'}
-      </button>
-      {error && <p>{error}</p>}
-      <div className="movie-grid">
+    <div className="container">
+      <h2 className="my-4">Search Movies</h2>
+      <div className="input-group mb-3">
+        <input 
+          type="text" 
+          className="form-control" 
+          value={query} 
+          onChange={(e) => setQuery(e.target.value)} 
+          placeholder="Search for a movie..."
+        />
+        <button className="btn btn-primary" onClick={handleSearch} disabled={loading}>
+          {loading ? 'Searching...' : 'Search'}
+        </button>
+      </div>
+      {error && <p className="text-danger">{error}</p>}
+      <div className="row">
         {results.map((movie) => (
-          <MovieCard 
-            key={movie.imdbID} 
-            movie={movie} 
-            onAction={() => dispatch(addFavorite(movie))} 
-            actionLabel="Add to Favorites" 
-          />
+          <div className="col-md-4 mb-4" key={movie.imdbID}>
+            <MovieCard 
+              movie={movie} 
+              onAction={() => dispatch(addFavorite(movie))} 
+              actionLabel="Add to Favorites" 
+            />
+          </div>
         ))}
       </div>
     </div>
   );
 };
 
-// Export the SearchMovies component as the default export
 export default SearchMovies;
