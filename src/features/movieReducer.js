@@ -7,14 +7,12 @@ const movieReducer = createSlice({
   name: 'movies',
   initialState: [],
   reducers: {
-    addFavorite: (state, action) => {
+    addMovie: (state, action) => {
       state.push(action.payload);
     },
-    removeFavorite: (state, action) => {
-      return state.filter(movie => movie.id !== action.payload.id);
-    },
+   
   },
 });
 
-export const { addFavorite, removeFavorite } = movieReducer.actions;
+export const { addMovie } = movieReducer.actions;
 export default movieReducer.reducer;
