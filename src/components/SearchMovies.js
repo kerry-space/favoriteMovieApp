@@ -7,17 +7,17 @@ import MovieCard from './Moviecard';
 const SearchMovies = () => {
   const [query, setQuery] = useState('');
   const dispatch = useDispatch();
-  const { results = [], allMovies = [] } = useSelector((state) => state.search); // Fallback to empty arrays
+  const { results = [], allMovies = [] } = useSelector((state) => state.search);
 
   const handleSearch = () => {
     if (!query.trim()) {
-      dispatch(setResults(allMovies)); // Show all movies if query is empty
+      dispatch(setResults(allMovies));
       return;
     }
     const filteredMovies = allMovies.filter((movie) =>
       movie.Title.toLowerCase().includes(query.toLowerCase())
     );
-    dispatch(setResults(filteredMovies)); // Update results with filtered movies
+    dispatch(setResults(filteredMovies));
   };
 
   return (
@@ -41,7 +41,6 @@ const SearchMovies = () => {
             <MovieCard
               movie={movie}
               onAction={() => dispatch(addFavorite(movie))}
-              actionLabel="Add to Favorites"
             />
           </div>
         ))}
