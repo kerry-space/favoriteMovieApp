@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchAllMovies } from './utils/api';
 import { setAllMovies } from './features/searchSlice';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SearchMovies from './components/SearchMovies';
-import FavoritesList from './components/FavoritesList';
+import FavoritesPage from './components/FavoritesPage';
+import Navbar from './components/Navbar';
 
 function App() {
   const dispatch = useDispatch();
@@ -17,17 +19,16 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="container">
-      <h1 className="my-4 text-center">Movie App</h1>
-      <div className="row">
-        <div className="col-md-6">
-          <SearchMovies />
-        </div>
-        <div className="col-md-6">
-          <FavoritesList />
-        </div>
+    <Router>
+      <div className="container">
+        <Navbar />
+        <h1 className="my-4 text-center">Movie App</h1>
+        <Routes>
+          <Route path="/" element={<SearchMovies />} />
+          <Route path="/favorites" element={<FavoritesPage />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
