@@ -1,23 +1,27 @@
+// src/components/SearchMovies.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResults } from '../features/searchSlice';
 import { addFavorite } from '../features/favoriteSlice';
 import MovieCard from './Moviecard';
+import { searchMovies } from '../utils/api';
 
 const SearchMovies = () => {
   const [query, setQuery] = useState('');
   const dispatch = useDispatch();
   const { results = [], allMovies = [] } = useSelector((state) => state.search);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (!query.trim()) {
       dispatch(setResults(allMovies));
       return;
     }
-    const filteredMovies = allMovies.filter((movie) =>
-      movie.Title.toLowerCase().includes(query.toLowerCase())
-    );
-    dispatch(setResults(filteredMovies));
+    try {
+      const movies = await searchMovies(query);
+      dispatch(setResults(movies));
+    } catch (error) {
+      console.error('Error searching movies:', error);
+    }
   };
 
   return (

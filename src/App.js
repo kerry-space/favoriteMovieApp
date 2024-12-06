@@ -22,7 +22,7 @@ function App() {
     <Router>
       <div className="container">
         <Navbar />
-        <h1 className="my-4 text-center">Movie App</h1>
+        <h1 className="my-4 text-center">Patrik & Kerry</h1>
         <Routes>
           <Route path="/" element={<SearchMovies />} />
           <Route path="/favorites" element={<FavoritesPage />} />
